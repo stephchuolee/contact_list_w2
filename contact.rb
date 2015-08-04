@@ -1,33 +1,51 @@
-class Contact
- 
-  attr_accessor :name, :email
+require 'pg'
 
-  def initialize(name, email)
-    # TODO: assign local variables to instance variables
-  end
- 
-  def to_s
-    # TODO: return string representation of Contact
-  end
- 
-  ## Class Methods
-  class << self
-    def create(name, email)
-      # TODO: Will initialize a contact as well as add it to the list of contacts
-    end
- 
-    def find(term)
-      # TODO: Will find and return contacts that contain the term in the first name, last name or email
-    end
- 
-    def all
-      # TODO: Return the list of contacts, as is
-    end
-    
-    def show(id)
-      # TODO: Show a contact, based on ID
-    end
-    
-  end
- 
-end
+class Contact
+
+  CONN = PG.connect(
+    host: 'localhost',
+    dbname: 'contacts', 
+    user: 'development',
+    password: 'development'
+    port: 5432
+    )
+
+  attr_reader :firstname, :lastname, :email, :id 
+
+  def initialize (firstname, lastname, email, id=0)
+    @firstname = firstname 
+    @lastname = lastname
+    @email = email
+    @id = id if id > 0
+  end 
+
+  def save
+    if id > 0 
+      query = "UPDATE contacts SET firstname = 'firstname', lastname = 'lastname', email = 'email' WHERE id = @id"#is @ necessary?
+    else 
+      query = "INSERT INTO contacts(firstname, lastname, email) VALUES('#{firstname}','#{lastname}', '#{email}') RETURNING id;"
+      id = #id returned from query 
+    end 
+  end 
+
+  def destroy
+    query = "DELETE FROM contacts WHERE id = #{id}"
+  end 
+
+  def self.find(id)
+    query = "SELECT c.id, c.firstname, c.lastname, c.email FROM contacts AS c WHERE c.id = #{id}"
+
+  end 
+
+  def self.find_all_by_lastname(name)
+
+  end 
+
+  def self.find_all_by_firstname(name)
+  end 
+
+  def find_by_email(email)
+  end 
+
+end 
+
