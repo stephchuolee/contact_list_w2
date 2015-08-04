@@ -2,14 +2,6 @@ require 'pg'
 
 class Contact
 
-  CONN = PG.connect(
-    host: 'localhost',
-    dbname: 'contacts', 
-    user: 'development',
-    password: 'development'
-    port: 5432
-    )
-
   attr_reader :firstname, :lastname, :email, :id 
 
   def initialize (firstname, lastname, email, id=0)
@@ -46,6 +38,18 @@ class Contact
 
   def find_by_email(email)
   end 
+
+  def connection
+    
+  CONN = PG.connect(
+    host: 'localhost',
+    dbname: 'contacts', 
+    user: 'development',
+    password: 'development'
+    port: 5432
+    )
+  end
+
 
 end 
 
