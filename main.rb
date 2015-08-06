@@ -1,4 +1,4 @@
-require_relative 'contact'
+# require_relative 'contact'
 
 # person = Contact.find(2)
 # puts person.firstname 
@@ -14,11 +14,11 @@ require_relative 'contact'
 # new_person = Contact.new("Shanique", "Kelly", "skellyy@gmail.com")
 # new_person.save
 
-test = Contact.find_all_by_lastname("Walters")
-puts test
+# test = Contact.find_all_by_lastname("Walters")
+# puts test
 
-test = Contact.find_all_by_firstname("Celia")
-puts test
+# test = Contact.find_all_by_firstname("Celia")
+# puts test
 
 
 # test = Contact.find_by_email("schuolee@gmail.com")
